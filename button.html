@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function colorchange() {
+                const colordiv = document.getElementById('colordiv');
+                colordiv.style = "background-color: green;";
+            };
+            function colorback() {
+                const colordiv = document.getElementById('colordiv');
+                colordiv.style = "background-color: red;";
+            };
+        </script>
+    </head>
+    <body>
+        <h1>button demo!</h1>
+        <input type="button" value="alert" onclick="alert('this is a javascript alert!')" />
+        <input type="button" value="change color" onclick="colorchange();" />
+        <input type="button" value="change back!" onclick="colorback();" />
+        <div id="colordiv" style="background-color: red;">what color am i?</div>
+    </body>
+</html>
