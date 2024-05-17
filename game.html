@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Simple Game Demo</title>
+        <script type="text/javascript">
+            var myScores = [];
+            var myTotal = 0;
+            var opponentScores = [];
+            var opponentTotal = 0;
+            function fillScore(element, scores, total) {
+                element.innerText = scores + " total: " + total;
+            }
+            function drawGame() {
+                const myScoreDiv = document.getElementById('myscore');
+                const opponentScoreDiv = document.getElementById("opponentscore")
+                fillScore(myScoreDiv, myScores, myTotal);
+                fillScore(opponentScoreDiv, opponentScores, opponentTotal);
+            }
+            function setResult(resultString) {
+                const result = document.getElementById("result");
+                const controls = document.getElementById("controls");
+                const resultContainer = document.getElementById("resultContainer");
+                result.innerText = resultString;
+                controls.style = "visibility: hidden;";
+                resultContainer.style = "visibility: visible;";
+            }
+            function hitme() {
+                var score = Math.random() * 10;
+                score = Math.ceil(score);
+                myScores.push(score);
+                myTotal += score;
+                drawGame();
+                if (myTotal > 21) {
+                    setResult("You lose! You went over 21.");
+                }
+            };
+            function reset() {
+                myScores = [];
+                myTotal = 0;
+                opponentScores = [];
+                opponentTotal = 0;
+                const result = document.getElementById("result");
+                const controls = document.getElementById("controls");
+                const resultContainer = document.getElementById("resultContainer");
+                result.innerText = "";
+                controls.style = "visibility: visible;";
+                resultContainer.style = "visibility: hidden;";
+                drawGame();
+            }
+            function stay() {
+                // play for computer
+                while (opponentTotal < 17) {
+                    var score = Math.random() * 10;
+                    score = Math.ceil(score);
+                    opponentScores.push(score);
+                    opponentTotal += score;
+                    drawGame();
+                }
+                if (myTotal == 21) {
+                    setResult("You win! you got 21! Nice!");
+                } else if(opponentTotal > 21) {
+                    setResult("You win! The opponent went over 21.");
+                } else if(myTotal > opponentTotal) {
+                    setResult("You win! Your score is higher.");
+                } else if (opponentTotal > myTotal) {
+                    setResult("You lose! Opponent's score is higher.")
+                } else {
+                    setResult("You tie! but you lose. Opponent wins all ties.");
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Simple Game!</h1>
+        <h3>Don't go over 21!</h3>
+        <h3>Get a higher score than the computer.</h3>
+        <div>
+            <div class="opponent" style="background-color: red;">
+                <p>Opponent</p>
+                <p>Score: <span id="opponentscore">0</span></p>
+            </div>
+            <div class="you" style="background-color: green;">
+                <p>You</p>
+                <p>Score: <span id="myscore">0</span></p>
+            </div>
+            <div id="resultContainer" style="visibility: hidden;">
+                <p id="result"></p>
+                <input type="button" value="New Game" onclick="reset();" />
+            </div>
+            <div id="controls">
+                <input type="button" value="Hit Me" onclick="hitme();" />
+                <input type="button" value="Stay" onclick="stay();" />
+            </div>
+        </div>
+    </body>
+</html>
